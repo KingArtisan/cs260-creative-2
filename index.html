@@ -1,0 +1,2566 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="main.css">
+        <title>Character Creator</title>
+    </head>
+    <body class="paleBack">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12" align="center">
+                    <br>
+                    <h1>D&D 5e Character Creator</h1>
+                    <br>
+                    <p>Enter the requested information below, then click "Generate" to generate your character.<br><small>For legal reasons, only ability names will be shown; consult the Player's Handbook for detailed descriptions.</small></p>
+                    <hr>
+                    <br>
+                </div> 
+            </div>
+            <form>
+                <div class="form-group">
+                    <label for="playerNameEntry" title="The name of whoever is playing this character">Player Name: </label>
+                    <input type="text" class="form-control" aria-label="Player name" id="playerNameEntry">
+                </div>
+                <div class="form-group">
+                    <label for="charNameEntry" title="The character's name">Character Name: </label>
+                    <input type="text" class="form-control" aria-label="Character name" id="charNameEntry">
+                </div>
+                <div class="form-group">
+                    <label for="raceSelect">Race: </label>
+                    <select class="form-control" aria-label="Character race" id="raceSelect" onselect="displaySubrace()">
+                        <option value="" selected="selected">(Select one)</option>
+                        <option value="human">Human</option>
+                        <option value="elf">Elf</option>
+                        <option value="half-elf">Half-Elf</option>
+                        <option value="dwarf">Dwarf</option>
+                        <option value="halfling">Halfling</option>
+                        <option value="gnome">Gnome</option>
+                        <option value="half-orc">Half-Orc</option>
+                        <option value="dragonborn">Dragonborn</option>
+                        <option value="tiefling">Tiefling</option>
+                    </select>
+                </div>
+                <div class="form-group" id="subraceDiv" style="display:none;">
+                    <label for="subraceSelect">Subrace: </label>
+                    <select class="form-control" aria-label="Character subrace" id="subraceSelect">
+                        <option value="" class="" selected='selected'>(Select one)</option>
+                        <option value="wood" class="sub_race elf">Wood Elf</option>
+                        <option value="high" class="sub_race elf">High Elf</option>
+                        <option value="dark" class="sub_race elf">Dark Elf</option>
+                        <option value="hill" class="sub_race dwarf">Hill Dwarf</option>
+                        <option value="mountain" class="sub_race dwarf">Mountain Dwarf</option>
+                        <option value="lightfoot" class="sub_race halfling">Lightfoot Halfling</option>
+                        <option value="stout" class="sub_race halfling">Stout Halfling</option>
+                        <option value="forest" class="sub_race gnome">Forest Gnome</option>
+                        <option value="rock" class="sub_race gnome">Rock Gnome</option>
+                        <option value="black" class="sub_race dragonborn">Black Dragonborn</option>
+                        <option value="blue" class="sub_race dragonborn">Blue Dragonborn</option>
+                        <option value="brass" class="sub_race dragonborn">Brass Dragonborn</option>
+                        <option value="bronze" class="sub_race dragonborn">Bronze Dragonborn</option>
+                        <option value="copper" class="sub_race dragonborn">Copper Dragonborn</option>
+                        <option value="gold" class="sub_race dragonborn">Gold Dragonborn</option>
+                        <option value="green" class="sub_race dragonborn">Green Dragonborn</option>
+                        <option value="red" class="sub_race dragonborn">Red Dragonborn</option>
+                        <option value="silver" class="sub_race dragonborn">Silver Dragonborn</option>
+                        <option value="white" class="sub_race dragonborn">White Dragonborn</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="classSelect">Class: </label>
+                    <select class="form-control" aria-label="Character class" id="classSelect">
+                        <option value="" selected="selected">(Select one)</option>
+                        <option value="barbarian">Barbarian</option>
+                        <option value="bard">Bard</option>
+                        <option value="cleric">Cleric</option>
+                        <option value="druid">Druid</option>
+                        <option value="fighter">Fighter</option>
+                        <option value="monk">Monk</option>
+                        <option value="paladin">Paladin</option>
+                        <option value="ranger">Ranger</option>
+                        <option value="rogue">Rogue</option>
+                        <option value="sorcerer">Sorcerer</option>
+                        <option value="warlock">Warlock</option>
+                        <option value="wizard">Wizard</option>
+                    </select>
+                </div>
+                <div class="form-group" id="subclassDiv" style="display:none;">
+                    <label for="subclassSelect" id="subclassTitleText">Subclass: </label>
+                    <select class="form-control" aria-label="Character subclass" id="subclassSelect">
+                        <option value="" class="" selected="selected">(Select one)</option>
+                        <option value="berserker" class="sub_class barbarian">Berserker</option>
+                        <option value="bear totem" class="sub_class barbarian">Totem Warrior (Bear)</option>
+                        <option value="eagle totem" class="sub_class barbarian">Totem Warrior (Eagle)</option>
+                        <option value="wolf totem" class="sub_class barbarian">Totem Warrior (Wolf)</option>
+                        <option value="lore college" class="sub_class bard">College of Lore</option>
+                        <option value="valor college" class="sub_class bard">College of Valor</option>
+                        <option value="knowledge domain" class="sub_class cleric">Knowledge Domain</option>
+                        <option value="life domain" class="sub_class cleric">Life Domain</option>
+                        <option value="light domain" class="sub_class cleric">Light Domain</option>
+                        <option value="nature domain" class="sub_class cleric">Nature Domain</option>
+                        <option value="tempest domain" class="sub_class cleric">Tempest Domain</option>
+                        <option value="trickery domain" class="sub_class cleric">Trickery Domain</option>
+                        <option value="war domain" class="sub_class cleric">War Domain</option>
+                        <option value="circle of the land" class="sub_class druid">Circle of the Land</option>
+                        <option value="circle of the moon" class="sub_class druid">Circle of the Moon</option>
+                        <option value="champion" class="sub_class fighter">Champion</option>
+                        <option value="battlemaster" class="sub_class fighter">Battle Master</option>
+                        <option value="eldritch knight" class="sub_class fighter">Eldritch Knight</option>
+                        <option value="way of the open hand" class="sub_class monk">Way of the Open Hand</option>
+                        <option value="way of shadow" class="sub_class monk">Way of Shadow</option>
+                        <option value="way of four elements" class="sub_class monk">Way of the Four Elements</option>
+                        <option value="oath of devotion" class="sub_class paladin">Oath of Devotion</option>
+                        <option value="oath of the ancients" class="sub_class paladin">Oath of the Ancients</option>
+                        <option value="oath of vengeance" class="sub_class paladin">Oath of Vengeance</option>
+                        <option value="hunter" class="sub_class ranger">Hunter</option>
+                        <option value="beastmaster" class="sub_class ranger">Beast Master</option>
+                        <option value="thief" class="sub_class rogue">Thief</option>
+                        <option value="assassin" class="sub_class rogue">Assassin</option>
+                        <option value="arcane trickster" class="sub_class rogue">Arcane Trickster</option>
+                        <option value="draconic" class="sub_class sorcerer">Draconic Bloodline</option>
+                        <option value="wild magic" class="sub_class sorcerer">Wild Magic</option>
+                        <option value="archfey" class="sub_class warlock">The Archfey</option>
+                        <option value="fiend" class="sub_class warlock">The Fiend</option>
+                        <option value="great old one" class="sub_class warlock">The Great Old One</option>
+                        <option value="abjuration" class="sub_class wizard">School of Abjuration</option>
+                        <option value="conjuration" class="sub_class wizard">School of Conjuration</option>
+                        <option value="divination" class="sub_class wizard">School of Divination</option>
+                        <option value="enchantment" class="sub_class wizard">School of Enchantment</option>
+                        <option value="evocation" class="sub_class wizard">School of Evocation</option>
+                        <option value="illusion" class="sub_class wizard">School of Illusion</option>
+                        <option value="necromancy" class="sub_class wizard">School of Necromancy</option>
+                        <option value="transmutation" class="sub_class wizard">School of Transmutation</option>
+                    </select>
+                </div>
+                <div class="form-group" id="pactDiv" style="display:none;">
+                    <label for="pactSelect">Warlock Pact: </label>
+                    <select class="form-control" aria-label="Pact" id="pactSelect">
+                        <option value="" class="" selected="selected">(Select one)</option>
+                        <option value="chain" class="pact">Pact of the Chain</option>
+                        <option value="blade" class="pact">Pact of the Blade</option>
+                        <option value="tome" class="pact">Pact of the Tome</option>
+                    </select>
+                </div>
+                <div class="form-group" id="levelDiv">
+                    <label for="levelSelect">Level: </label>
+                    <select class="form-control" aria-label="Character level" id="levelSelect">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                        <option value="17">17</option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                        <option value="20">20</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="backgroundSelect">Background: </label>
+                    <select class="form-control" aria-label="Character background" id="backgroundSelect">
+                        <option value="" class="" selected="selected">(Select one)</option>
+                        <option value="acolyte">Acolyte</option>
+                        <option value="charlatan">Charlatan</option>
+                        <option value="criminal">Criminal</option>
+                        <option value="entertainer">Entertainer</option>
+                        <option value="folkhero">Folk Hero</option>
+                        <option value="gladiator">Gladiator</option>
+                        <option value="guildartisan">Guild Artisan</option>
+                        <option value="hermit">Hermit</option>
+                        <option value="knight">Knight</option>
+                        <option value="noble">Noble</option>
+                        <option value="outlander">Outlander</option>
+                        <option value="pirate">Pirate</option>
+                        <option value="sage">Sage</option>
+                        <option value="sailor">Sailor</option>
+                        <option value="soldier">Soldier</option>
+                        <option value="urchin">Urchin</option>
+                    </select>
+                </div>
+            </form>
+            <br>
+            <button class="btn btn-secondary btn-block" id="generateButton">Generate Character</button>
+            <div class="row" id="characterSheetDiv" style="display:none;">
+                <hr>
+                <p id="playerNameDisplay">Player Name:</p>
+                <p id="charNameDisplay">Character Name:</p>
+                <p id="raceDisplay">Race:</p>
+                <p id="bgDisplay">Background:</p>
+                <p id="classDisplay">Class/Level:</p>
+                <p id="hpDisplay">Max HP:</p>
+                <p id="acDisplay">Armor Class (AC):</p>
+                <p id="statsLabel">Attributes:</p>
+                <ul>
+                    <li id="strDisplay">Strength: </li>
+                    <li id="dexDisplay">Dexterity: </li>
+                    <li id="conDisplay">Constitution: </li>
+                    <li id="intDisplay">Intelligence: </li>
+                    <li id="wisDisplay">Wisdom: </li>
+                    <li id="chaDisplay">Charisma: </li>
+                </ul>
+                <p id="proficiencyDisplay">Proficiency:</p>
+                <p id="featuresDisplay">Features:</p>
+                <ul id="featuresList">
+                    <!-- Filled by jQuery -->
+                </ul>
+                <p id="languagesDisplay">Languages:</p>
+            </div>
+            <br><br>
+        </div>
+        
+        <script>
+            $(document).ready(function() {
+                var char_name = "";
+                var player_name = "";
+                var background = "";
+                var chosen_class = "";
+                var subclass = "";
+                var pact = "";
+                var race = "";
+                var subrace = "";
+                var str;
+                var strmod;
+                var dex;
+                var dexmod;
+                var con;
+                var conmod;
+                var int;
+                var intmod;
+                var wis;
+                var wismod;
+                var cha;
+                var chamod;
+                var level = 1;
+                var maxhp;
+                var ac;
+                var speed;
+                var proficiency;
+                var maxhd;
+                var features=[];
+                var languages = "";
+                
+                // NAME entry
+                $("#playerNameEntry").change(function(){
+                   player_name = $("#playerNameEntry").val(); 
+                });
+                
+                $("#charNameEntry").change(function(){
+                   char_name = $("#charNameEntry").val(); 
+                });
+                
+                // RACE and SUBRACE selection
+                $("#raceSelect").change(function(){
+                   race = $("#raceSelect").val();
+                   $("#subraceSelect").val("");
+                   subrace = "";
+                   
+                   if(race != "human" && race != "tiefling" && race != "half-elf" && race !="half-orc" && race != ""){
+                       $("#subraceSelect > option").each(function(){
+                          if($(this).attr('class').indexOf(race) == -1){ //If it isn't a subrace of the selected race
+                              $(this).css('display', 'none');
+                          }else{
+                              $(this).css('display', 'block');
+                          }
+                       });
+                       $("#subraceDiv").css('display', 'block');
+                   }else{
+                       $("#subraceDiv").css('display', 'none');
+                   }
+                });
+                
+                $("#subraceSelect").change(function(){
+                   subrace = $("#subraceSelect").val(); 
+                });
+                
+                // CLASS and SUBCLASS selection
+                $("#classSelect").change(function(){
+                    chosen_class = $("#classSelect").val();
+                    $("#subclassSelect").val("");
+                    subclass = "";
+                    pact = "";
+                    
+                    $("#subclassSelect > option").each(function(){
+                        if($(this).attr('class').indexOf(chosen_class) == -1){
+                            $(this).css('display', 'none');
+                        }else{
+                            $(this).css('display', 'block');
+                        }
+                        $("#subclassDiv").css('display', 'block');
+                    });
+                    
+                    if(chosen_class == "warlock"){
+                        $("#pactDiv").css('display', 'block')
+                    }else{
+                        $("#pactDiv").css('display', 'none')
+                    }
+                });
+                
+                $("#subclassSelect").change(function(){
+                   subclass = $('#subclassSelect').val(); 
+                });
+                
+                $("#pactSelect").change(function() {
+                   pact = $('#pactSelect').val(); 
+                });
+                
+                $("#levelSelect").change(function() {
+                   level = $("#levelSelect").val(); 
+                });
+                
+                $("#backgroundSelect").change(function() {
+                   background = $("#backgroundSelect").val(); 
+                });
+                
+                // STATS
+                function addHighestThree(val1,val2,val3,val4){
+                    var total1 = val1 + val2 + val3;
+                    var total2 = val1 + val2 + val4;
+                    var total3 = val1 + val3 + val4;
+                    var total4 = val2 + val3 + val4;
+                    
+                    return Math.max(total1,total2,total3,total4);
+                }
+                
+                function generateStats(){
+                    var stat1;
+                    var stat2;
+                    var stat3;
+                    var stat4;
+                    var attributes = [];
+                    var i;
+                    
+                    for (i = 0; i < 6; i++) { 
+                        stat1 = Math.floor((Math.random() * 6) + 1);
+                        stat2 = Math.floor((Math.random() * 6) + 1);
+                        stat3 = Math.floor((Math.random() * 6) + 1);
+                        stat4 = Math.floor((Math.random() * 6) + 1);
+                        console.log(stat1,stat2,stat3,stat4);
+                        attributes[i] = addHighestThree(stat1,stat2,stat3,stat4);
+                    }
+                    
+                    return attributes;
+                }
+                
+                function sortNumber(a,b){
+                    return b-a;
+                }
+                
+                function assignStatsForClass(arr){
+                    console.log(arr);
+                    arr.sort(sortNumber);
+                    console.log(arr);
+                    
+                    switch(chosen_class){ //Sorts max stat based on class
+                        case "barbarian":
+                                con = arr[0];
+                                str = arr[1];
+                                dex = arr[2];
+                                wis = arr[3];
+                                cha = arr[4];
+                                int = arr[5];
+                            break;
+                        case "bard":
+                                cha = arr[0];
+                                dex = arr[1];
+                                con = arr[2];
+                                str = arr[3];
+                                int = arr[4];
+                                wis = arr[5];
+                            break;
+                        case "cleric":
+                                wis = arr[0];
+                                str = arr[1];
+                                dex = arr[2];
+                                con = arr[3];
+                                int = arr[4];
+                                cha = arr[5];
+                            break;
+                        case "druid":
+                                wis = arr[0];
+                                con = arr[1];
+                                cha = arr[2];
+                                str = arr[3];
+                                dex = arr[4];
+                                int = arr[5];
+                            break;
+                        case "fighter":
+                                str = arr[0];
+                                dex = arr[1];
+                                con = arr[2];
+                                wis = arr[3];
+                                cha = arr[4];
+                                int = arr[5];
+                            break;
+                        case "monk":
+                                dex = arr[0];
+                                wis = arr[1];
+                                con = arr[2];
+                                str = arr[3];
+                                int = arr[4];
+                                cha = arr[5];
+                            break;
+                        case "paladin":
+                                str = arr[0];
+                                cha = arr[1];
+                                con = arr[2];
+                                int = arr[3];
+                                wis = arr[4];
+                                dex = arr[5];
+                            break;
+                        case "ranger":
+                                dex = arr[0];
+                                wis = arr[1];
+                                str = arr[2];
+                                con = arr[3];
+                                int = arr[4];
+                                cha = arr[5];
+                            break;
+                        case "rogue":
+                                dex = arr[0];
+                                cha = arr[1];
+                                wis = arr[2];
+                                int = arr[3];
+                                con = arr[4];
+                                str = arr[5];
+                            break;
+                        case "sorcerer":
+                                cha = arr[0];
+                                con = arr[1];
+                                dex = arr[2];
+                                wis = arr[3];
+                                int = arr[4];
+                                str = arr[5];
+                            break;
+                        case "warlock":
+                                cha = arr[0];
+                                con = arr[1];
+                                dex = arr[2];
+                                int = arr[3];
+                                wis = arr[4];
+                                str = arr[5];
+                            break;
+                        case "wizard":
+                                int = arr[0];
+                                con = arr[1];
+                                dex = arr[2];
+                                wis = arr[3];
+                                str = arr[4];
+                                cha = arr[5];
+                            break;
+                    }
+                }
+                
+                // RACIAL BONUSES
+                function addRacialBonuses(){
+                    switch(race){
+                        case "human":
+                            str = str + 1;
+                            dex = dex + 1;
+                            con = con + 1;
+                            int = int + 1;
+                            wis = wis + 1;
+                            cha = cha + 1;
+                            speed = 30;
+                            languages = "Common";
+                            features.push("Extra Language");
+                            break;
+                        case "elf":
+                            dex = dex + 2;
+                            speed = 30;
+                            features.push("Darkvision");
+                            features.push("Keen Senses");
+                            features.push("Fey Ancestry");
+                            features.push("Trance");
+                            languages += "Common, Elvish";
+                            switch(subrace){
+                                case "high":
+                                    int = int + 1;
+                                    features.push("Elf Weapon Training");
+                                    features.push("Cantrip (1, INT)");
+                                    features.push("Extra Language (1)");
+                                    break;
+                                case "wood":
+                                    wis = wis + 1;
+                                    features.push("Elf Weapon Training");
+                                    speed = 35;
+                                    features.push("Mask of the Wild");
+                                    break;
+                                case "dark":
+                                    cha = cha +1;
+                                    features.push("Superior Darkvision");
+                                    features.push("Sunlight Sensitivity");
+                                    features.push("Drow Magic");
+                                    features.push("Drow Weapon Training");
+                                    break;
+                            }
+                            break;
+                        case "half-elf":
+                            cha = cha + 2;
+                            features.push("Two Ability Scores +1");
+                            speed = 30;
+                            features.push("Darkvision");
+                            features.push("Fey Ancestry");
+                            features.push("Skill Versatility");
+                            languages += "Common, Elvish";
+                            features.push("Extra Language (1)");
+                            break;
+                        case "dwarf":
+                            con = con + 2;
+                            speed = 25;
+                            features.push("Darkvision");
+                            features.push("Dwarven Resilience");
+                            features.push("Dwarven Combat Training");
+                            features.push("Tool Proficiency");
+                            features.push("Stonecunning");
+                            languages = "Common, Dwarvish";
+                            switch(subrace){
+                                case "hill":
+                                    wis = wis +1;
+                                    features.push("Dwarven Toughness");
+                                    break;
+                                case "mountain":
+                                    str = str + 2;
+                                    features.push("Dwarven Armor Training");
+                                    break;
+                            }
+                            break;
+                        case "halfling":
+                            dex = dex + 2;
+                            speed = 25;
+                            features.push("Lucky");
+                            features.push("Brave");
+                            features.push("Halfling Nimbleness");
+                            languages += "Common, Halfling";
+                            switch(subrace){
+                                case "lightfoot":
+                                    cha = cha + 1;
+                                    features.push("Naturally Stealthy");
+                                    break;
+                                case "stout":
+                                    con = con + 1;
+                                    features.push("Stout Resilience");
+                                    break;
+                            }
+                            break;
+                        case "gnome":
+                            int = int +2;
+                            speed = 25;
+                            features.push("Darkvision");
+                            features.push("Gnome Cunning");
+                            languages += "Common, Gnomish";
+                            switch(subrace){
+                                case "forest":
+                                    dex += 1;
+                                    features.push("Natural Illusionist");
+                                    features.push("Speak with Small Beasts");
+                                    break;
+                                case "rock":
+                                    con = con + 1;
+                                    features.push("Artificer's Lore");
+                                    features.push("Tinker");
+                                    break;
+                            }
+                            break;
+                        case "half-orc":
+                            str = str + 2;
+                            con = con + 1;
+                            speed = 30;
+                            features.push("Darkvision");
+                            features.push("Menacing");
+                            features.push("Relentless Endurance");
+                            features.push("Savage Attacks");
+                            languages += "Common, Orc";
+                            break;
+                        case "dragonborn":
+                            str = str + 2;
+                            cha = cha + 1;
+                            speed = 30;
+                            languages += "Common, Draconic";
+                            switch(subclass){
+                                case "black":
+                                    features.push("Draconic Ancestry (Black)");
+                                    features.push("Breath Weapon (Acid, line)");
+                                    features.push("Damage Resistance (Acid)");
+                                    break;
+                                case "blue":
+                                    features.push("Draconic Ancestry (Blue)");
+                                    features.push("Breath Weapon (Lightning, line)");
+                                    features.push("Damage Resistance (Lightning)");
+                                    break;
+                                case "brass":
+                                    features.push("Draconic Ancestry (Brass)");
+                                    features.push("Breath Weapon (Fire, line)");
+                                    features.push("Damage Resistance (Fire)");
+                                    break;
+                                case "bronze":
+                                    features.push("Draconic Ancestry (Bronze)");
+                                    features.push("Breath Weapon (Lightning, line)");
+                                    features.push("Damage Resistance (Lightning)");
+                                    break;
+                                case "copper":
+                                    features.push("Draconic Ancestry (Copper)");
+                                    features.push("Breath Weapon (Acid, line)");
+                                    features.push("Damage Resistance (Acid)");
+                                    break;
+                                case "gold":
+                                    features.push("Draconic Ancestry (Gold)");
+                                    features.push("Breath Weapon (Fire, cone)");
+                                    features.push("Damage Resistance (Fire)");
+                                    break;
+                                case "green":
+                                    features.push("Draconic Ancestry (Green)");
+                                    features.push("Breath Weapon (Poison, cone)");
+                                    features.push("Damage Resistance (Poison)");
+                                    break;
+                                case "red":
+                                    features.push("Draconic Ancestry (Red)");
+                                    features.push("Breath Weapon (Fire, cone)");
+                                    features.push("Damage Resistance (Fire)");
+                                    break;
+                                case "silver":
+                                    features.push("Draconic Ancestry (Silver)");
+                                    features.push("Breath Weapon (Cold, cone)");
+                                    features.push("Damage Resistance (Cold)");
+                                    break;
+                                case "white":
+                                    features.push("Draconic Ancestry (Silver)");
+                                    features.push("Breath Weapon (Cold, cone)");
+                                    features.push("Damage Resistance (Cold)");
+                                    break;
+                            }
+                            break;
+                        case "tiefling":
+                            int = int + 1;
+                            cha = cha + 2;
+                            speed = 30;
+                            features.push("Darkvision");
+                            features.push("Hellish Resistance");
+                            features.push("Infernal Legacy");
+                            languages += "Common, Infernal";
+                            break;
+                    }
+                }
+                
+                //BACKGROUND FEATURES
+                function addBackgroundFeatures(bg){
+                    switch(bg){
+                        case "acolyte":
+                                features.push("Proficient Skills (Background): Insight, Religion");
+                                features.push("Extra Language(s) (Background): Choose any 2");
+                                features.push("Tools (Background): None");
+                            break;
+                        case "charlatan":
+                                features.push("Proficient Skills (Background): Deception, Sleight of Hand");
+                                features.push("Extra Language(s) (Background): None");
+                                features.push("Tools (Background): Disguise kit, forgery kit");
+                            break;
+                        case "criminal":
+                                features.push("Proficient Skills (Background): Deception, Stealth");
+                                features.push("Extra Language(s) (Background): None");
+                                features.push("Tools (Background): Gaming set, thieves' tools");
+                            break;
+                        case "entertainer":
+                                features.push("Proficient Skills (Background): Acrobatics, Performance");
+                                features.push("Extra Language(s) (Background): None");
+                                features.push("Tools (Background): Disguise kit, musical instrument");
+                            break;
+                        case "folkhero":
+                                features.push("Proficient Skills (Background): Animal Handling, Survival");
+                                features.push("Extra Language(s) (Background): None");
+                                features.push("Tools (Background): Artisan's tools, Vehicles (land)");
+                            break;
+                        case "gladiator":
+                                features.push("Proficient Skills (Background): Acrobatics, Performance");
+                                features.push("Extra Language(s) (Background): None");
+                                features.push("Tools (Background): Disguise kit, musical instrument");
+                            break;
+                        case "guildartisan":
+                                features.push("Proficient Skills (Background): Insight, Persuasion");
+                                features.push("Extra Language(s) (Background): Choose any 1");
+                                features.push("Tools (Background): Artisan's tools");
+                            break;
+                        case "hermit":
+                                features.push("Proficient Skills (Background): Medicine, Religion");
+                                features.push("Extra Language(s) (Background): Choose any 1");
+                                features.push("Tools (Background): Herbalism kit");
+                            break;
+                        case "knight":
+                                features.push("Proficient Skills (Background): History, Persuasion");
+                                features.push("Extra Language(s) (Background): Choose any 1");
+                                features.push("Tools (Background): Gaming set");
+                            break;
+                        case "noble":
+                                features.push("Proficient Skills (Background): History, Persuasion");
+                                features.push("Extra Language(s) (Background): Choose any 1");
+                                features.push("Tools (Background): Gaming set");
+                            break;
+                        case "outlander":
+                                features.push("Proficient Skills (Background): Athletics, Survival");
+                                features.push("Extra Language(s) (Background): Choose any 1");
+                                features.push("Tools (Background): Musical instrument");
+                            break;
+                        case "pirate":
+                                features.push("Proficient Skills (Background): Athletics, Perception");
+                                features.push("Extra Language(s) (Background): None");
+                                features.push("Tools (Background): Navigator's tools, Vehicles (water)");
+                            break;
+                        case "sage":
+                                features.push("Proficient Skills (Background): Arcana, History");
+                                features.push("Extra Language(s) (Background): Choose any 2");
+                                features.push("Tools (Background): None");
+                            break;
+                        case "sailor":
+                                features.push("Proficient Skills (Background): Athletics, Perception");
+                                features.push("Extra Language(s) (Background): None");
+                                features.push("Tools (Background): Gaming set, Vehicles (water)");
+                            break;
+                        case "soldier":
+                                features.push("Proficient Skills (Background): Athletics, Intimidation");
+                                features.push("Extra Language(s) (Background): None");
+                                features.push("Tools (Background): Gaming set, Vehicles (land)");
+                            break;
+                        case "urchin":
+                                features.push("Proficient Skills (Background): Sleight of Hand, Stealth");
+                                features.push("Extra Language(s) (Background): None");
+                                features.push("Tools (Background): Disguise kit, Thieves' tools");
+                            break;
+                    }
+                }
+                
+                //CLASS FEATURES
+                //Barbarian
+                function addBarbarianFeatures(l){
+                    maxhp = 12 + conmod + ((l-1) * 7) + ((l-1) * conmod);
+                    switch(l){
+                        case "20": features.push("Primal Champion");
+                        case "19": features.push("Ability Score Improvement");
+                        case "18": features.push("Indomitable Might");
+                        case "17": features.push("Brutal Critical (3 dice)");
+                        case "16": features.push("Ability Score Improvement");
+                        case "15": features.push("Persistent Rage");
+                        case "14":
+                        case "13": features.push("Brutal Critical (2 dice)");
+                        case "12": features.push("Ability Score Improvement");
+                        case "11": features.push("Relentless Rage");
+                        case "10":
+                        case "9": features.push("Brutal Critical (1 die)");
+                        case "8": features.push("Ability Score Improvement");
+                        case "7": features.push("Feral Instinct");
+                        case "6":
+                        case "5": features.push("Extra Attack");
+                                features.push("Fast Movement");
+                        case "4": features.push("Ability Score Improvement");
+                        case "3": features.push("Primal Path");
+                        case "2": features.push("Reckless Attack");
+                                features.push("Danger Sense");
+                        case "1": features.push("Rage");
+                                features.push("Unarmored Defense");
+                                break;
+                    }
+                    
+                    switch(subclass){
+                        case "berserker":
+                            switch(l){
+                                case "20":
+                                case "19":
+                                case "18":
+                                case "17":
+                                case "16":
+                                case "15":
+                                case "14": features.push("Retaliation");
+                                case "13":
+                                case "12":
+                                case "11":
+                                case "10": features.push("Intimidating Presence");
+                                case "9":
+                                case "8":
+                                case "7":
+                                case "6": features.push("Mindless Rage");
+                                case "5":
+                                case "4":
+                                case "3": features.push("Frenzy");
+                                case "2":
+                                case "1":
+                                    break;
+                            }
+                            break;
+                        case "bear totem":
+                            switch(l){
+                                case "20":
+                                case "19":
+                                case "18":
+                                case "17":
+                                case "16":
+                                case "15":
+                                case "14": features.push("Totemic Attunement - Bear");
+                                case "13":
+                                case "12":
+                                case "11":
+                                case "10": features.push("Spirit Walker");
+                                case "9":
+                                case "8":
+                                case "7":
+                                case "6": features.push("Aspect of the Beast - Bear");
+                                case "5":
+                                case "4":
+                                case "3": features.push("Spirit Seeker");
+                                        features.push("Totem Spirit - Bear"); 
+                                case "2":
+                                case "1":
+                                    break;
+                            }
+                            break;
+                        case "eagle totem":
+                            switch(l){
+                                case "20":
+                                case "19":
+                                case "18":
+                                case "17":
+                                case "16":
+                                case "15":
+                                case "14": features.push("Totemic Attunement - Eagle");
+                                case "13":
+                                case "12":
+                                case "11":
+                                case "10": features.push("Spirit Walker");
+                                case "9":
+                                case "8":
+                                case "7":
+                                case "6": features.push("Aspect of the Beast - Eagle");
+                                case "5":
+                                case "4":
+                                case "3": features.push("Spirit Seeker");
+                                        features.push("Totem Spirit - Eagle"); 
+                                case "2":
+                                case "1":
+                                    break;
+                            }
+                            break;
+                        case "wolf totem":
+                            switch(l){
+                                case "20":
+                                case "19":
+                                case "18":
+                                case "17":
+                                case "16":
+                                case "15":
+                                case "14": features.push("Totemic Attunement - Wolf");
+                                case "13":
+                                case "12":
+                                case "11":
+                                case "10": features.push("Spirit Walker");
+                                case "9":
+                                case "8":
+                                case "7":
+                                case "6": features.push("Aspect of the Beast - Wolf");
+                                case "5":
+                                case "4":
+                                case "3": features.push("Spirit Seeker");
+                                        features.push("Totem Spirit - Wolf"); 
+                                case "2":
+                                case "1":
+                                    break;
+                            }
+                            break;
+                    }
+                    
+                    features.push("Proficient Armor: Light, Medium, Shields");
+                    features.push("Proficient Weapons: Simple, Martial");
+                    features.push("Proficient Tools: None");
+                    features.push("Proficient Saving Throws: Strength, Constitution");
+                    features.push("Proficient Skills: Choose 2 from Animal Handling, Athletics, Intimidation, Nature, Perception, and Survival");
+                }
+                
+                //Bard
+                function addBardFeatures(l){
+                    maxhp = 8 + conmod + ((l-1) * 5) + ((l-1) * conmod);
+                    switch(l){
+                        case "20": features.push("Superior Inspiration");
+                        case "19": features.push("Ability Score Improvement");
+                        case "18": features.push("Magical Secrets");
+                        case "17": features.push("Song of Rest (d12)");
+                        case "16": features.push("Ability Score Improvement");
+                        case "15": features.push("Bardic Inspiration (d12)");
+                        case "14": features.push("Magical Secrets");
+                        case "13": features.push("Song of Rest (d10)");
+                        case "12": features.push("Ability Score Improvement");
+                        case "11": 
+                        case "10": features.push("Bardic Inspiration (d10)");
+                                 features.push("Expertise");
+                                 features.push("Magical Secrets");
+                        case "9": features.push("Song of Rest (d8)");
+                        case "8": features.push("Ability Score Improvement");
+                        case "7": 
+                        case "6": features.push("Countercharm");
+                        case "5": features.push("Bardic Inspiration (d8)");
+                                features.push("Font of Inspiration");
+                        case "4": features.push("Ability Score Improvement");
+                        case "3": features.push("Expertise");
+                        case "2": features.push("Jack of All Trades");
+                                features.push("Song of Rest (d6)");
+                        case "1": features.push("Spellcasting");
+                                features.push("Bardic Inspiration (d6)");
+                                break;
+                    }
+                    
+                    switch(subclass){
+                        case "lore college":
+                            switch(l){
+                                case "20":
+                                case "19":
+                                case "18":
+                                case "17":
+                                case "16":
+                                case "15":
+                                case "14": features.push("Peerless Skill");
+                                case "13":
+                                case "12":
+                                case "11":
+                                case "10":
+                                case "9":
+                                case "8":
+                                case "7":
+                                case "6": features.push("Additional Magical Secrets");
+                                case "5":
+                                case "4":
+                                case "3": features.push("Bonus Proficiencies");
+                                        features.push("Cutting Words");
+                                case "2":
+                                case "1":
+                                    break;
+                            }
+                            break;
+                        case "valor college":
+                            switch(l){
+                                case "20":
+                                case "19":
+                                case "18":
+                                case "17":
+                                case "16":
+                                case "15":
+                                case "14": features.push("Battle Magic");
+                                case "13":
+                                case "12":
+                                case "11":
+                                case "10":
+                                case "9":
+                                case "8":
+                                case "7":
+                                case "6": features.push("Extra Attack");
+                                case "5":
+                                case "4":
+                                case "3": features.push("Bonus Proficiencies");
+                                        features.push("Combat Inspiration"); 
+                                case "2":
+                                case "1":
+                                    break;
+                            }
+                            break;
+                    }
+                    
+                    features.push("Proficient Armor: Light");
+                    features.push("Proficient Weapons: Simple, Hand Crossbows, Longswords, Rapiers, Shortswords");
+                    features.push("Proficient Tools: Three Musical Instruments");
+                    features.push("Proficient Saving Throws: Dexterity, Charisma");
+                    features.push("Proficient Skills: Choose any 3");
+                }
+                
+                //Cleric
+                function addClericFeatures(l){
+                    maxhp = 8 + conmod + ((l-1) * 5) + ((l-1) * conmod);
+                    switch(l){
+                        case "20": features.push("Divine Intervention Improvement");
+                        case "19": features.push("Ability Score Improvement");
+                        case "18": features.push("Channel Divinity (3/rest)");
+                        case "17": features.push("Destroy Undead (CR 4)");
+                        case "16": features.push("Ability Score Improvement");
+                        case "15": 
+                        case "14": features.push("Destroy Undead (CR 3)");
+                        case "13":
+                        case "12": features.push("Ability Score Improvement");
+                        case "11": features.push("Destroy Undead (CR 2)");
+                        case "10": features.push("Divine Intervention");
+                        case "9": 
+                        case "8": features.push("Ability Score Improvement");
+                                features.push("Destroy Undead (CR 1)");
+                        case "7": 
+                        case "6": features.push("Channel Divinity (2/rest)");
+                        case "5": features.push("Destroy Undead (CR 1/2)");
+                        case "4": features.push("Ability Score Improvement");
+                        case "3": 
+                        case "2": features.push("Channel Divinity (2/rest)");
+                        case "1": features.push("Spellcasting");
+                                features.push("Divine Domain");
+                                break;
+                    }
+                    
+                    switch(subclass){
+                        case "knowledge domain":
+                            switch(l){
+                                case "20":
+                                case "19":
+                                case "18":
+                                case "17": features.push("Visions of the Past");
+                                case "16":
+                                case "15":
+                                case "14":
+                                case "13":
+                                case "12":
+                                case "11":
+                                case "10":
+                                case "9":
+                                case "8": features.push("Potent Spellcasting");
+                                case "7":
+                                case "6": features.push("Channel Divinity: Read Thoughts");
+                                case "5":
+                                case "4":
+                                case "3": 
+                                case "2": features.push("Channel Divinity: Knowledge of the Ages");
+                                case "1": features.push("Blessings of Knowledge");
+                                    break;
+                            }
+                            break;
+                        case "life domain":
+                            switch(l){
+                                case "20":
+                                case "19":
+                                case "18":
+                                case "17": features.push("Supreme Healing");
+                                case "16":
+                                case "15":
+                                case "14":
+                                case "13":
+                                case "12":
+                                case "11":
+                                case "10":
+                                case "9":
+                                case "8": features.push("Divine Strike");
+                                case "7":
+                                case "6": features.push("Blessed Healer");
+                                case "5":
+                                case "4":
+                                case "3": 
+                                case "2": features.push("Channel Divinity: Preserve Life");
+                                case "1": features.push("Disciple of Life");
+                                        features.push("Bonus Proficiency");
+                                    break;
+                            }
+                            break;
+                        case "light domain":
+                            switch(l){
+                                case "20":
+                                case "19":
+                                case "18":
+                                case "17": features.push("Corona of Light");
+                                case "16":
+                                case "15":
+                                case "14":
+                                case "13":
+                                case "12":
+                                case "11":
+                                case "10":
+                                case "9":
+                                case "8": features.push("Potent Spellcasting");
+                                case "7":
+                                case "6": features.push("Improved Flare");
+                                case "5":
+                                case "4":
+                                case "3": 
+                                case "2": features.push("Channel Divinity: Radiance of the Dawn");
+                                case "1": features.push("Warding Flare");
+                                        features.push("Bonus Cantrip");
+                                    break;
+                            }
+                            break;
+                        case "nature domain":
+                            switch(l){
+                                case "20":
+                                case "19":
+                                case "18":
+                                case "17": features.push("Master of Nature");
+                                case "16":
+                                case "15":
+                                case "14":
+                                case "13":
+                                case "12":
+                                case "11":
+                                case "10":
+                                case "9":
+                                case "8": features.push("Divine Strike");
+                                case "7":
+                                case "6": features.push("Dampen Elements");
+                                case "5":
+                                case "4":
+                                case "3": 
+                                case "2": features.push("Channel Divinity: Charm Animals and Plants");
+                                case "1": features.push("Acolyte of Nature");
+                                        features.push("Bonus Proficiency");
+                                    break;
+                            }
+                            break;
+                        case "tempest domain":
+                            switch(l){
+                                case "20":
+                                case "19":
+                                case "18":
+                                case "17": features.push("Stormborn");
+                                case "16":
+                                case "15":
+                                case "14":
+                                case "13":
+                                case "12":
+                                case "11":
+                                case "10":
+                                case "9":
+                                case "8": features.push("Divine Strike");
+                                case "7":
+                                case "6": features.push("Thunderbolt Strike");
+                                case "5":
+                                case "4":
+                                case "3": 
+                                case "2": features.push("Channel Divinity: Destructive Wrath");
+                                case "1": features.push("Wrath of the Storm");
+                                        features.push("Bonus Proficiencies");
+                                    break;
+                            }
+                            break;
+                        case "trickery domain":
+                            switch(l){
+                                case "20":
+                                case "19":
+                                case "18":
+                                case "17": features.push("Improved Duplicity");
+                                case "16":
+                                case "15":
+                                case "14":
+                                case "13":
+                                case "12":
+                                case "11":
+                                case "10":
+                                case "9":
+                                case "8": features.push("Divine Strike");
+                                case "7":
+                                case "6": features.push("Channel Divinity: Cloak of Shadows");
+                                case "5":
+                                case "4":
+                                case "3": 
+                                case "2": features.push("Channel Divinity: Invoke Duplicity");
+                                case "1": features.push("Blessing of the Trickster");
+                                    break;
+                            }
+                            break;
+                        case "war domain":
+                            switch(l){
+                                case "20":
+                                case "19":
+                                case "18":
+                                case "17": features.push("Avatar of Battle");
+                                case "16":
+                                case "15":
+                                case "14":
+                                case "13":
+                                case "12":
+                                case "11":
+                                case "10":
+                                case "9":
+                                case "8": features.push("Divine Strike");
+                                case "7":
+                                case "6": features.push("Channel Divinity: War God's Blessing");
+                                case "5":
+                                case "4":
+                                case "3": 
+                                case "2": features.push("Channel Divinity: Guided Strike");
+                                case "1": features.push("War Priest");
+                                        features.push("Bonus Proficiencies");
+                                    break;
+                            }
+                            break;
+                    }
+                    
+                    features.push("Proficient Armor: Light, Medium, Shields");
+                    features.push("Proficient Weapons: Simple");
+                    features.push("Proficient Tools: None");
+                    features.push("Proficient Saving Throws: Wisdom, Charisma");
+                    features.push("Proficient Skills: Choose 2 from History, Insight, Medicine, Persuasion, and Religion");
+                }
+                
+                //Druid
+                function addDruidFeatures(l){
+                    maxhp = 8 + conmod + ((l-1) * 5) + ((l-1) * conmod);
+                    switch(l){
+                        case "20": features.push("Archdruid");
+                        case "19": features.push("Ability Score Improvement");
+                        case "18": features.push("Timeless Body");
+                                 features.push("Beast Spells");
+                        case "17": 
+                        case "16": features.push("Ability Score Improvement");
+                        case "15": 
+                        case "14": 
+                        case "13": 
+                        case "12": features.push("Ability Score Improvement");
+                        case "11": 
+                        case "10": 
+                        case "9": 
+                        case "8": features.push("Wild Shape Improvement");
+                                features.push("Ability Score Improvement");
+                        case "7": 
+                        case "6": 
+                        case "5": 
+                        case "4": features.push("Wild Shape Improvement");
+                                features.push("Ability Score Improvement");
+                        case "3": 
+                        case "2": features.push("Wild Shape");
+                                features.push("Druid Circle");
+                        case "1": features.push("Spellcasting");
+                                features.push("Druidic");
+                                break;
+                    }
+                    
+                    switch(subclass){
+                        case "circle of the land":
+                            switch(l){
+                                case "20":
+                                case "19":
+                                case "18":
+                                case "17":
+                                case "16":
+                                case "15":
+                                case "14": features.push("Nature's Sanctuary");
+                                case "13":
+                                case "12":
+                                case "11":
+                                case "10": features.push("Nature's Ward");
+                                case "9":
+                                case "8":
+                                case "7":
+                                case "6": features.push("Land's Stride");
+                                case "5":
+                                case "4":
+                                case "3": features.push("Circle Spells");
+                                case "2": features.push("Bonus Cantrip");
+                                        features.push("Natural Recovery");
+                                case "1":
+                                    break;
+                            }
+                            break;
+                        case "circle of the moon":
+                            switch(l){
+                                case "20":
+                                case "19":
+                                case "18":
+                                case "17":
+                                case "16":
+                                case "15":
+                                case "14": features.push("Thousand Forms");
+                                case "13":
+                                case "12":
+                                case "11":
+                                case "10": features.push("Elemental Wild Shape");
+                                case "9":
+                                case "8":
+                                case "7":
+                                case "6": features.push("Primal Strike");
+                                case "5":
+                                case "4":
+                                case "3": features.push("Circle Spells");
+                                case "2": features.push("Combat Wild Shape");
+                                        features.push("Circle Forms");
+                                case "1":
+                                    break;
+                            }
+                            break;
+                    }
+                    
+                    features.push("Proficient Armor: Non-metal Light, Medium, Shields");
+                    features.push("Proficient Weapons: Clubs, Daggers, Darts, Javelins, Maces, Quarterstaffs, Scimitars, Sickles, Slings, Spears");
+                    features.push("Proficient Tools: Herbalism kit");
+                    features.push("Proficient Saving Throws: Intelligence, Wisdom");
+                    features.push("Proficient Skills: Choose 2 from Arcana, Animal Handling, Insight, Medicine, Nature, Perception, Religion, and Survival");
+                }
+                
+                //Fighter
+                function addFighterFeatures(l){
+                    maxhp = 10 + conmod + ((l-1) * 6) + ((l-1) * conmod);
+                    switch(l){
+                        case "20": features.push("Extra Attack (3)");
+                        case "19": features.push("Ability Score Improvement");
+                        case "18": 
+                        case "17": features.push("Action Surge (2 uses)");
+                                 features.push("Indomitable (3 uses)");
+                        case "16": features.push("Ability Score Improvement");
+                        case "15": 
+                        case "14": features.push("Ability Score Improvement");
+                        case "13": features.push("Indomitable (2 uses)");
+                        case "12": features.push("Ability Score Improvement");
+                        case "11": features.push("Extra Attack (2)");
+                        case "10": 
+                        case "9": features.push("Indomitable (1 use)");
+                        case "8": features.push("Ability Score Improvement");
+                        case "7": 
+                        case "6": features.push("Ability Score Improvement");
+                        case "5": features.push("Extra Attack");
+                        case "4": features.push("Ability Score Improvement");
+                        case "3": features.push("Martial Archetype");
+                        case "2": features.push("Action Surge (1 use)");
+                        case "1": features.push("Fighting Style");
+                                features.push("Second Wind");
+                                break;
+                    }
+                    
+                    switch(subclass){
+                        case "champion":
+                            switch(l){
+                                case "20":
+                                case "19":
+                                case "18": features.push("Survivor");
+                                case "17":
+                                case "16":
+                                case "15": features.push("Superior Critical");
+                                case "14": 
+                                case "13":
+                                case "12":
+                                case "11":
+                                case "10": features.push("Additional Fighting Style");
+                                case "9":
+                                case "8":
+                                case "7": features.push("Remarkable Athlete");
+                                case "6": 
+                                case "5":
+                                case "4":
+                                case "3": features.push("Improved Critical");
+                                case "2":
+                                case "1":
+                                    break;
+                            }
+                            break;
+                        case "battlemaster":
+                            switch(l){
+                                case "20":
+                                case "19":
+                                case "18": 
+                                case "17":
+                                case "16":
+                                case "15": features.push("Relentless");
+                                case "14": 
+                                case "13":
+                                case "12":
+                                case "11":
+                                case "10": features.push("Improved Combat Superiority");
+                                case "9":
+                                case "8":
+                                case "7": features.push("Know Your Enemy");
+                                case "6": 
+                                case "5":
+                                case "4":
+                                case "3": features.push("Combat Superiority");
+                                        features.push("Student of War");
+                                        features.push("Maneuvers");
+                                case "2":
+                                case "1":
+                                    break;
+                            }
+                            break;
+                        case "eldritch knight":
+                            switch(l){
+                                case "20":
+                                case "19":
+                                case "18": features.push("Improved War Magic");
+                                case "17":
+                                case "16":
+                                case "15": features.push("Arcane Charge");
+                                case "14": 
+                                case "13":
+                                case "12":
+                                case "11":
+                                case "10": features.push("Eldritch Strike");
+                                case "9":
+                                case "8":
+                                case "7": features.push("War Magic");
+                                case "6": 
+                                case "5":
+                                case "4":
+                                case "3": features.push("Spellcasting");
+                                        features.push("Weapon Bond");
+                                case "2":
+                                case "1":
+                                    break;
+                            }
+                            break;
+                    }
+                    
+                    features.push("Proficient Armor: Light, Medium, Heavy, Shields");
+                    features.push("Proficient Weapons: Simple, Martial");
+                    features.push("Proficient Tools: None");
+                    features.push("Proficient Saving Throws: Strength, Constitution");
+                    features.push("Proficient Skills: Choose 2 from Acrobatics, Animal Handling, Athletics, History, Insight, Intimidation, Perception, and Survival");
+                }
+                
+                //Monk
+                function addMonkFeatures(l){
+                    maxhp = 8 + conmod + ((l-1) * 5) + ((l-1) * conmod);
+                    switch(l){
+                        case "20": features.push("Perfect Self");
+                        case "19": features.push("Ability Score Improvement");
+                        case "18": features.push("Empty Body");
+                        case "17": 
+                        case "16": features.push("Ability Score Improvement");
+                        case "15": features.push("Timeless Body");
+                        case "14": features.push("Diamond Soul");
+                        case "13": features.push("Tongue of the Sun and Moon");
+                        case "12": features.push("Ability Score Improvement");
+                        case "11":
+                        case "10": features.push("Purity of Body"); 
+                        case "9": features.push("Unarmored Movement Improvement");
+                        case "8": features.push("Ability Score Improvement");
+                        case "7": features.push("Evasion");
+                                features.push("Stillness of Mind");
+                        case "6": features.push("Ki-Empowered Strikes");
+                        case "5": features.push("Extra Attack");
+                                features.push("Stunning Strike");
+                        case "4": features.push("Ability Score Improvement");
+                                features.push("Slow Fall");
+                        case "3": features.push("Monastic Tradition");
+                                features.push("Deflect Missiles");
+                        case "2": features.push("Ki");
+                                features.push("Unarmored Movement");
+                        case "1": features.push("Martial Arts");
+                                features.push("Unarmored Defense");
+                                break;
+                    }
+                    
+                    switch(subclass){
+                        case "way of the open hand":
+                            switch(l){
+                                case "20":
+                                case "19":
+                                case "18": 
+                                case "17": features.push("Quivering Palm");
+                                case "16":
+                                case "15":
+                                case "14": 
+                                case "13":
+                                case "12":
+                                case "11": features.push("Tranquility");
+                                case "10": 
+                                case "9":
+                                case "8":
+                                case "7": 
+                                case "6": features.push("Wholeness of Body");
+                                case "5":
+                                case "4":
+                                case "3": features.push("Open Hand Technique");
+                                case "2":
+                                case "1":
+                                    break;
+                            }
+                            break;
+                        case "way of shadow":
+                            switch(l){
+                                case "20":
+                                case "19":
+                                case "18": 
+                                case "17": features.push("Opportunist");
+                                case "16":
+                                case "15":
+                                case "14": 
+                                case "13":
+                                case "12":
+                                case "11": features.push("Cloak of Shadows");
+                                case "10": 
+                                case "9":
+                                case "8":
+                                case "7": 
+                                case "6": features.push("Shadow Step");
+                                case "5":
+                                case "4":
+                                case "3": features.push("Shadow Arts");
+                                case "2":
+                                case "1":
+                                    break;
+                            }
+                            break;
+                        case "way of four elements":
+                            switch(l){
+                                case "20":
+                                case "19":
+                                case "18": 
+                                case "17":
+                                case "16":
+                                case "15":
+                                case "14": 
+                                case "13":
+                                case "12":
+                                case "11":
+                                case "10": 
+                                case "9":
+                                case "8":
+                                case "7": 
+                                case "6":
+                                case "5":
+                                case "4":
+                                case "3": features.push("Disciple of the Elements");
+                                case "2":
+                                case "1":
+                                    break;
+                            }
+                            break;
+                    }
+                    
+                    features.push("Proficient Armor: None");
+                    features.push("Proficient Weapons: Simple, Shortswords");
+                    features.push("Proficient Tools: One type of artisan's tools or one musical instrument");
+                    features.push("Proficient Saving Throws: Strength, Dexterity");
+                    features.push("Proficient Skills: Choose 2 from Acrobatics, Athletics, History, Insight, Religion, and Stealth");
+                }
+                
+                //Paladin
+                function addPaladinFeatures(l){
+                    maxhp = 10 + conmod + ((l-1) * 6) + ((l-1) * conmod);
+                    switch(l){
+                        case "20":
+                        case "19": features.push("Ability Score Improvement");
+                        case "18": features.push("Aura Improvments");
+                        case "17": 
+                        case "16": features.push("Ability Score Improvement");
+                        case "15":
+                        case "14": features.push("Cleansing Touch");
+                        case "13":
+                        case "12": features.push("Ability Score Improvement");
+                        case "11": features.push("Improved Divine Smite");
+                        case "10": features.push("Aura of Courage"); 
+                        case "9":
+                        case "8": features.push("Ability Score Improvement");
+                        case "7": 
+                        case "6": features.push("Aura of Protection");
+                        case "5": features.push("Extra Attack");
+                        case "4": features.push("Ability Score Improvement");
+                        case "3": features.push("Divine Health");
+                                features.push("Sacred Oath");
+                        case "2": features.push("Fighting Style");
+                                features.push("Spellcasting");
+                                features.push("Divine Smite");
+                        case "1": features.push("Divine Sense");
+                                features.push("Lay on Hands");
+                                break;
+                    }
+                    
+                    switch(subclass){
+                        case "oath of the ancients":
+                            switch(l){
+                                case "20": features.push("Elder Champion");
+                                case "19":
+                                case "18": 
+                                case "17": 
+                                case "16":
+                                case "15": features.push("Undying Sentinel");
+                                case "14": 
+                                case "13":
+                                case "12":
+                                case "11": 
+                                case "10": 
+                                case "9":
+                                case "8":
+                                case "7": features.push("Aura of Warding");
+                                case "6": 
+                                case "5":
+                                case "4":
+                                case "3": features.push("Channel Divinity");
+                                case "2":
+                                case "1":
+                                    break;
+                            }
+                            break;
+                        case "oath of devotion":
+                            switch(l){
+                                case "20": features.push("Holy Nimbus");
+                                case "19":
+                                case "18": 
+                                case "17": 
+                                case "16":
+                                case "15": features.push("Purity of Spirit");
+                                case "14": 
+                                case "13":
+                                case "12":
+                                case "11": 
+                                case "10": 
+                                case "9":
+                                case "8":
+                                case "7": features.push("Aura of Devotion");
+                                case "6": 
+                                case "5":
+                                case "4":
+                                case "3": features.push("Channel Divinity");
+                                case "2":
+                                case "1":
+                                    break;
+                            }
+                            break;
+                        case "oath of vengeance":
+                            switch(l){
+                                case "20": features.push("Avenging Angel");
+                                case "19":
+                                case "18": 
+                                case "17": 
+                                case "16":
+                                case "15": features.push("Soul of Vengeance");
+                                case "14": 
+                                case "13":
+                                case "12":
+                                case "11": 
+                                case "10": 
+                                case "9":
+                                case "8":
+                                case "7": features.push("Relentless Avenger");
+                                case "6": 
+                                case "5":
+                                case "4":
+                                case "3": features.push("Channel Divinity");
+                                case "2":
+                                case "1":
+                                    break;
+                            }
+                            break;
+                        
+                    }
+                    
+                    features.push("Proficient Armor: Light, Medium, Heavy, Shields");
+                    features.push("Proficient Weapons: Simple, Martial");
+                    features.push("Proficient Tools: None");
+                    features.push("Proficient Saving Throws: Wisdom, Charisma");
+                    features.push("Proficient Skills: Choose 2 from Athletics, Insight, Indimidation, Medicine, Persuasion, and Religion");
+                }
+                
+                // Ranger
+                function addRangerFeatures(l){
+                    maxhp = 10 + conmod + ((l-1) * 6) + ((l-1) * conmod);
+                    switch(l){
+                        case "20": features.push("Foe Slayer");
+                        case "19": features.push("Ability Score Improvement");
+                        case "18": features.push("Feral Senses");
+                        case "17": 
+                        case "16": features.push("Ability Score Improvement");
+                        case "15":
+                        case "14": features.push("Favored Enemy Improvement");
+                                 features.push("Vanish");
+                        case "13":
+                        case "12": features.push("Ability Score Improvement");
+                        case "11": 
+                        case "10": features.push("Natural Explorer Improvement");
+                                 features.push("Hide in Plain Sight");
+                        case "9":
+                        case "8": features.push("Ability Score Improvement");
+                                features.push("Land's Stride");
+                        case "7": 
+                        case "6": features.push("Favored Enemy Improvement");
+                                features.push("Natural Explorer Improvement");
+                        case "5": features.push("Extra Attack");
+                        case "4": features.push("Ability Score Improvement");
+                        case "3": features.push("Primeval Awareness");
+                                features.push("Ranger Archetype");
+                        case "2": features.push("Fighting Style");
+                                features.push("Spellcasting");
+                        case "1": features.push("Natural Explorer");
+                                features.push("Favored Enemy");
+                                break;
+                    }
+                    
+                    switch(subclass){
+                        case "beastmaster":
+                            switch(l){
+                                case "20": 
+                                case "19":
+                                case "18": 
+                                case "17": 
+                                case "16":
+                                case "15": features.push("Share Spells");
+                                case "14": 
+                                case "13":
+                                case "12":
+                                case "11": features.push("Bestial Fury");
+                                case "10": 
+                                case "9":
+                                case "8":
+                                case "7": features.push("Exceptional Training");
+                                case "6": 
+                                case "5":
+                                case "4":
+                                case "3": features.push("Ranger's Companion");
+                                case "2":
+                                case "1":
+                                    break;
+                            }
+                            break;
+                        case "hunter":
+                            switch(l){
+                                case "20": 
+                                case "19":
+                                case "18": 
+                                case "17": 
+                                case "16":
+                                case "15": features.push("Superior Hunter's Defense");
+                                case "14": 
+                                case "13":
+                                case "12":
+                                case "11": features.push("Multi-attack");
+                                case "10": 
+                                case "9":
+                                case "8":
+                                case "7": features.push("Defensive Tactics");
+                                case "6": 
+                                case "5":
+                                case "4":
+                                case "3": features.push("Hunter's Prey");
+                                case "2":
+                                case "1":
+                                    break;
+                            }
+                            break;
+                        
+                    }
+                    
+                    features.push("Proficient Armor: Light, Medium, Shields");
+                    features.push("Proficient Weapons: Simple, Martial");
+                    features.push("Proficient Tools: None");
+                    features.push("Proficient Saving Throws: Strength, Dexterity");
+                    features.push("Proficient Skills: Choose 3 from Animal Handling, Athletics, Insight, Investigation, Nature, Perception, Stealth, and Survival");
+                }
+                
+                // Rogue
+                function addRogueFeatures(l){
+                    maxhp = 8 + conmod + ((l-1) * 5) + ((l-1) * conmod);
+                    switch(l){
+                        case "20": features.push("Stroke of Luck");
+                        case "19": features.push("Ability Score Improvement");
+                        case "18": features.push("Elusive");
+                        case "17": 
+                        case "16": features.push("Ability Score Improvement");
+                        case "15": features.push("Slippery Mind");
+                        case "14": features.push("Blindsense");
+                        case "13":
+                        case "12": features.push("Ability Score Improvement");
+                        case "11": features.push("Reliable Talent");
+                        case "10": features.push("Ability Score Improvement");
+                        case "9":
+                        case "8": features.push("Ability Score Improvement");
+                        case "7": features.push("Evasion");
+                        case "6": features.push("Expertise");
+                        case "5": features.push("Uncanny Dodge");
+                        case "4": features.push("Ability Score Improvement");
+                        case "3": features.push("Roguish Archetype");
+                        case "2": features.push("Cunning Action");
+                        case "1": features.push("Expertise");
+                                features.push("Sneak Attack");
+                                features.push("Thieves' Cant");
+                                break;
+                    }
+                    
+                    switch(subclass){
+                        case "arcane trickster":
+                            switch(l){
+                                case "20": 
+                                case "19":
+                                case "18": 
+                                case "17": features.push("Spell Thief");
+                                case "16":
+                                case "15": 
+                                case "14":
+                                case "13": features.push("Versatile Trickster");
+                                case "12":
+                                case "11": 
+                                case "10": 
+                                case "9": features.push("Magical Ambush");
+                                case "8":
+                                case "7": 
+                                case "6": 
+                                case "5":
+                                case "4":
+                                case "3": features.push("Spellcasting");
+                                        features.push("Mage Hand Legerdemain");
+                                case "2":
+                                case "1": 
+                                    break;
+                            }
+                            break;
+                        case "assassin":
+                            switch(l){
+                                case "20": 
+                                case "19":
+                                case "18": 
+                                case "17": features.push("Death Strike");
+                                case "16":
+                                case "15": 
+                                case "14":
+                                case "13": features.push("Impostor");
+                                case "12":
+                                case "11": 
+                                case "10": 
+                                case "9": features.push("Infiltration Expertise");
+                                case "8":
+                                case "7": 
+                                case "6": 
+                                case "5":
+                                case "4":
+                                case "3": features.push("Bonus Proficiencies");
+                                        features.push("Assassinate");
+                                case "2":
+                                case "1": 
+                                    break;
+                            }
+                            break;
+                        case "thief":
+                            switch(l){
+                                case "20": 
+                                case "19":
+                                case "18": 
+                                case "17": features.push("Thief's Reflexes");
+                                case "16":
+                                case "15": 
+                                case "14":
+                                case "13": features.push("Use Magic Device");
+                                case "12":
+                                case "11": 
+                                case "10": 
+                                case "9": features.push("Supreme Sneak");
+                                case "8":
+                                case "7": 
+                                case "6": 
+                                case "5":
+                                case "4":
+                                case "3": features.push("Second-Story Work");
+                                        features.push("Fast Hands");
+                                case "2":
+                                case "1": 
+                                    break;
+                            }
+                            break;
+                        
+                    }
+                    
+                    features.push("Proficient Armor: Light");
+                    features.push("Proficient Weapons: Simple, Hand Crossbows, Longswords, Rapiers, Shortswords");
+                    features.push("Proficient Tools: Thieves' Tools");
+                    features.push("Proficient Saving Throws: Dexterity, Intelligence");
+                    features.push("Proficient Skills: Choose 4 from Acrobatics, Athletics, Deception, Insight, Intimidation, Investigation, Percpetion, Performance, Persuasion, Sleight of Hand, and Stealth");
+                }
+                
+                // Sorcerer
+                function addSorcererFeatures(l){
+                    maxhp = 6 + conmod + ((l-1) * 4) + ((l-1) * conmod);
+                    switch(l){
+                        case "20": features.push("Sorcerous Restoration");
+                        case "19": features.push("Ability Score Improvement");
+                        case "18": 
+                        case "17": features.push("Metamagic");
+                        case "16": features.push("Ability Score Improvement");
+                        case "15":
+                        case "14":
+                        case "13":
+                        case "12": features.push("Ability Score Improvement");
+                        case "11": 
+                        case "10": features.push("Metamagic");
+                        case "9":
+                        case "8": features.push("Ability Score Improvement");
+                        case "7": 
+                        case "6":
+                        case "5":
+                        case "4": features.push("Ability Score Improvement");
+                        case "3": features.push("Metamagic");
+                        case "2": features.push("Font of Magic");
+                        case "1": features.push("Spellcasting");
+                                features.push("Sorcerous Origin");
+                                break;
+                    }
+                    
+                    switch(subclass){
+                        case "draconic":
+                            switch(l){
+                                case "20": 
+                                case "19":
+                                case "18": features.push("Draconic Presence");
+                                case "17": 
+                                case "16":
+                                case "15": 
+                                case "14": features.push("Dragon Wings");
+                                case "13":
+                                case "12":
+                                case "11": 
+                                case "10": 
+                                case "9":
+                                case "8":
+                                case "7": 
+                                case "6": features.push("Elemental Affinity");
+                                case "5":
+                                case "4":
+                                case "3": 
+                                case "2":
+                                case "1": features.push("Dragon Ancestor");
+                                        features.push("Draconic Resilience");
+                                    break;
+                            }
+                            break;
+                        case "wild magic":
+                            switch(l){
+                                case "20": 
+                                case "19":
+                                case "18": features.push("Spell Bombardment");
+                                case "17": 
+                                case "16":
+                                case "15": 
+                                case "14": features.push("Controlled Chaos");
+                                case "13":
+                                case "12":
+                                case "11": 
+                                case "10": 
+                                case "9":
+                                case "8":
+                                case "7": 
+                                case "6": features.push("Bend Luck");
+                                case "5":
+                                case "4":
+                                case "3": 
+                                case "2":
+                                case "1": features.push("Wild Magic Surge");
+                                        features.push("Tides of Chaos");
+                                    break;
+                            }
+                            break;
+                        
+                    }
+                    
+                    features.push("Proficient Armor: None");
+                    features.push("Proficient Weapons: Daggers, Darts, Slings, Quarterstaffs, Light Crossbows");
+                    features.push("Proficient Tools: None");
+                    features.push("Proficient Saving Throws: Constitution, Charisma");
+                    features.push("Proficient Skills: Choose 2 from Arcana, Deception, Insight, Indimidation, Persuasion, and Religion");
+                }
+                
+                // Warlock
+                function addWarlockFeatures(l){
+                    maxhp = 8 + conmod + ((l-1) * 5) + ((l-1) * conmod);
+                    switch(l){
+                        case "20": features.push("Eldritch Master");
+                        case "19": features.push("Ability Score Improvement");
+                        case "18": 
+                        case "17": features.push("Mystic Arcanum (9th level)");
+                        case "16": features.push("Ability Score Improvement");
+                        case "15": features.push("Mystic Arcanum (8th level)");
+                        case "14":
+                        case "13": features.push("Mystic Arcanum (7th level)");
+                        case "12": features.push("Ability Score Improvement");
+                        case "11": features.push("Mystic Arcanum (6th level)");
+                        case "10": 
+                        case "9":
+                        case "8": features.push("Ability Score Improvement");
+                        case "7": 
+                        case "6":
+                        case "5":
+                        case "4": features.push("Ability Score Improvement");
+                        case "3": features.push("Pact Boon");
+                        case "2": features.push("Eldritch Invocations");
+                        case "1": features.push("Pact Magic");
+                                features.push("Otherworldly Patron");
+                                break;
+                    }
+                    
+                    switch(subclass){
+                        case "archfey":
+                            switch(l){
+                                case "20": 
+                                case "19":
+                                case "18": 
+                                case "17": 
+                                case "16":
+                                case "15": 
+                                case "14": features.push("Dark Delirium");
+                                case "13":
+                                case "12":
+                                case "11": 
+                                case "10": features.push("Beguiling Defenses");
+                                case "9":
+                                case "8":
+                                case "7": 
+                                case "6": features.push("Misty Escape");
+                                case "5":
+                                case "4":
+                                case "3": 
+                                case "2":
+                                case "1": features.push("Fey Presence");
+                                        features.push("Expanded Spell List");
+                                    break;
+                            }
+                            break;
+                        case "fiend":
+                            switch(l){
+                                case "20": 
+                                case "19":
+                                case "18": 
+                                case "17": 
+                                case "16":
+                                case "15": 
+                                case "14": features.push("Hurl Through Hell");
+                                case "13":
+                                case "12":
+                                case "11": 
+                                case "10": features.push("Fiendish Resilience");
+                                case "9":
+                                case "8":
+                                case "7": 
+                                case "6": features.push("Dark One's Own Luck");
+                                case "5":
+                                case "4":
+                                case "3": 
+                                case "2":
+                                case "1": features.push("Dark One's Blessing");
+                                        features.push("Expanded Spell List");
+                                    break;
+                            }
+                            break;
+                        case "great old one":
+                            switch(l){
+                                case "20": 
+                                case "19":
+                                case "18": 
+                                case "17": 
+                                case "16":
+                                case "15": 
+                                case "14": features.push("Create Thrall");
+                                case "13":
+                                case "12":
+                                case "11": 
+                                case "10": features.push("Thought Shield");
+                                case "9":
+                                case "8":
+                                case "7": 
+                                case "6": features.push("Entropic Ward");
+                                case "5":
+                                case "4":
+                                case "3": 
+                                case "2":
+                                case "1": features.push("Awakened Mind");
+                                        features.push("Expanded Spell List");
+                                    break;
+                            }
+                            break;
+                        
+                        
+                    }
+                    
+                    switch(pact){
+                        case "chain":
+                            switch(l){
+                                case "20": 
+                                case "19":
+                                case "18": 
+                                case "17": 
+                                case "16":
+                                case "15": 
+                                case "14":
+                                case "13":
+                                case "12":
+                                case "11": 
+                                case "10":
+                                case "9":
+                                case "8":
+                                case "7": 
+                                case "6":
+                                case "5":
+                                case "4":
+                                case "3": features.push("Pact of the Chain");
+                                case "2":
+                                case "1": 
+                                    break;
+                            }
+                            break;
+                        case "blade":
+                            switch(l){
+                                case "20": 
+                                case "19":
+                                case "18": 
+                                case "17": 
+                                case "16":
+                                case "15": 
+                                case "14":
+                                case "13":
+                                case "12":
+                                case "11": 
+                                case "10":
+                                case "9":
+                                case "8":
+                                case "7": 
+                                case "6":
+                                case "5":
+                                case "4":
+                                case "3": features.push("Pact of the Blade");
+                                case "2":
+                                case "1": 
+                                    break;
+                            }
+                            break;
+                        case "tome":
+                            switch(l){
+                                case "20": 
+                                case "19":
+                                case "18": 
+                                case "17": 
+                                case "16":
+                                case "15": 
+                                case "14":
+                                case "13":
+                                case "12":
+                                case "11": 
+                                case "10":
+                                case "9":
+                                case "8":
+                                case "7": 
+                                case "6":
+                                case "5":
+                                case "4":
+                                case "3": features.push("Pact of the Tome");
+                                case "2":
+                                case "1": 
+                                    break;
+                            }
+                            break;
+                    }
+                    
+                    features.push("Proficient Armor: Light");
+                    features.push("Proficient Weapons: Simple");
+                    features.push("Proficient Tools: None");
+                    features.push("Proficient Saving Throws: Wisdom, Charisma");
+                    features.push("Proficient Skills: Choose 2 from Arcana, Deception, History, Indimidation, Investigation, Nature, and Religion");
+                }
+                
+                // Wizard
+                function addWizardFeatures(l){
+                    maxhp = 6 + conmod + ((l-1) * 4) + ((l-1) * conmod);
+                    switch(l){
+                        case "20": features.push("Signature Spell");
+                        case "19": features.push("Ability Score Improvement");
+                        case "18": features.push("Spell Mastery");
+                        case "17":
+                        case "16": features.push("Ability Score Improvement");
+                        case "15":
+                        case "14":
+                        case "13":
+                        case "12": features.push("Ability Score Improvement");
+                        case "11": 
+                        case "10":
+                        case "9":
+                        case "8": features.push("Ability Score Improvement");
+                        case "7": 
+                        case "6":
+                        case "5":
+                        case "4": features.push("Ability Score Improvement");
+                        case "3": 
+                        case "2": features.push("Arcane Tradition");
+                        case "1": features.push("Spellcasting");
+                                features.push("Arcane Recovery");
+                                break;
+                    }
+                    
+                    switch(subclass){
+                        case "abjuration":
+                            switch(l){
+                                case "20": 
+                                case "19":
+                                case "18": 
+                                case "17": 
+                                case "16":
+                                case "15": 
+                                case "14": features.push("Spell Resistance");
+                                case "13":
+                                case "12":
+                                case "11": 
+                                case "10": features.push("Improved Abjuration");
+                                case "9":
+                                case "8":
+                                case "7": 
+                                case "6": features.push("Projected Ward");
+                                case "5":
+                                case "4":
+                                case "3": 
+                                case "2": features.push("Abjuration Savant");
+                                        features.push("Arcane Ward");
+                                case "1": 
+                                    break;
+                            }
+                            break;
+                        case "conjuration":
+                            switch(l){
+                                case "20": 
+                                case "19":
+                                case "18": 
+                                case "17": 
+                                case "16":
+                                case "15": 
+                                case "14": features.push("Durable Summons");
+                                case "13":
+                                case "12":
+                                case "11": 
+                                case "10": features.push("Focused Conjuration");
+                                case "9":
+                                case "8":
+                                case "7": 
+                                case "6": features.push("Benign Transposition");
+                                case "5":
+                                case "4":
+                                case "3": 
+                                case "2": features.push("Conjuration Savant");
+                                        features.push("Minor Conjuration");
+                                case "1": 
+                                    break;
+                            }
+                            break;
+                        case "divination":
+                            switch(l){
+                                case "20": 
+                                case "19":
+                                case "18": 
+                                case "17": 
+                                case "16":
+                                case "15": 
+                                case "14": features.push("Greater Portent");
+                                case "13":
+                                case "12":
+                                case "11": 
+                                case "10": features.push("The Third Eye");
+                                case "9":
+                                case "8":
+                                case "7": 
+                                case "6": features.push("Expert Divination");
+                                case "5":
+                                case "4":
+                                case "3": 
+                                case "2": features.push("Divination Savant");
+                                        features.push("Portent");
+                                case "1": 
+                                    break;
+                            }
+                            break;
+                        case "enchantment":
+                            switch(l){
+                                case "20": 
+                                case "19":
+                                case "18": 
+                                case "17": 
+                                case "16":
+                                case "15": 
+                                case "14": features.push("Alter Memories");
+                                case "13":
+                                case "12":
+                                case "11": 
+                                case "10": features.push("Split Enchantment");
+                                case "9":
+                                case "8":
+                                case "7": 
+                                case "6": features.push("Instinctive Charm");
+                                case "5":
+                                case "4":
+                                case "3": 
+                                case "2": features.push("Enchantment Savant");
+                                        features.push("Hypnotic Gaze");
+                                case "1": 
+                                    break;
+                            }
+                            break;
+                        case "evocation":
+                            switch(l){
+                                case "20": 
+                                case "19":
+                                case "18": 
+                                case "17": 
+                                case "16":
+                                case "15": 
+                                case "14": features.push("Overchannel");
+                                case "13":
+                                case "12":
+                                case "11": 
+                                case "10": features.push("Empowered Evocation");
+                                case "9":
+                                case "8":
+                                case "7": 
+                                case "6": features.push("Protent Cantrip");
+                                case "5":
+                                case "4":
+                                case "3": 
+                                case "2": features.push("Evocation Savant");
+                                        features.push("Sculpt Spells");
+                                case "1": 
+                                    break;
+                            }
+                            break;
+                        case "illusion":
+                            switch(l){
+                                case "20": 
+                                case "19":
+                                case "18": 
+                                case "17": 
+                                case "16":
+                                case "15": 
+                                case "14": features.push("Illusory Reality");
+                                case "13":
+                                case "12":
+                                case "11": 
+                                case "10": features.push("Illusory Self");
+                                case "9":
+                                case "8":
+                                case "7": 
+                                case "6": features.push("Malleable Illusions");
+                                case "5":
+                                case "4":
+                                case "3": 
+                                case "2": features.push("Illusion Savant");
+                                        features.push("Improved Minor Illusion");
+                                case "1": 
+                                    break;
+                            }
+                            break;
+                        case "necromancy":
+                            switch(l){
+                                case "20": 
+                                case "19":
+                                case "18": 
+                                case "17": 
+                                case "16":
+                                case "15": 
+                                case "14": features.push("Command Undead");
+                                case "13":
+                                case "12":
+                                case "11": 
+                                case "10": features.push("Inured to Undeath");
+                                case "9":
+                                case "8":
+                                case "7": 
+                                case "6": features.push("Undead Thralls");
+                                case "5":
+                                case "4":
+                                case "3": 
+                                case "2": features.push("Necromancy Savant");
+                                        features.push("Grim Harvest");
+                                case "1": 
+                                    break;
+                            }
+                            break;
+                        case "transmutation":
+                            switch(l){
+                                case "20": 
+                                case "19":
+                                case "18": 
+                                case "17": 
+                                case "16":
+                                case "15": 
+                                case "14": features.push("Master Transmuter");
+                                case "13":
+                                case "12":
+                                case "11": 
+                                case "10": features.push("Shapechanger");
+                                case "9":
+                                case "8":
+                                case "7": 
+                                case "6": features.push("Transmuter's Stone");
+                                case "5":
+                                case "4":
+                                case "3": 
+                                case "2": features.push("Transmutation Savant");
+                                        features.push("Minor Alchemy");
+                                case "1": 
+                                    break;
+                            }
+                            break;
+                        
+                    }
+                    
+                    features.push("Proficient Armor: None");
+                    features.push("Proficient Weapons: Daggers, Darts, Slings, Quarterstaffs, Light Crossbows");
+                    features.push("Proficient Tools: None");
+                    features.push("Proficient Saving Throws: Intelligence, Wisdom");
+                    features.push("Proficient Skills: Choose 2 from Arcana, History, Insight, Investigation, Medicine, and Religion");
+                }
+                
+                //All
+                function addClassFeatures(l){
+                    
+                    switch(l){
+                        case "1":
+                        case "2":
+                        case "3":
+                        case "4": 
+                            proficiency = 2;
+                            break;
+                        case "5":
+                        case "6":
+                        case "7":
+                        case "8": 
+                            proficiency = 3;
+                            break;
+                        case "9":
+                        case "10":
+                        case "11":
+                        case "12": 
+                            proficiency = 4;
+                            break;
+                        case "13":
+                        case "14":
+                        case "15":
+                        case "16": 
+                            proficiency = 5;
+                            break;
+                        case "17":
+                        case "18":
+                        case "19":
+                        case "20": 
+                            proficiency = 6;
+                            break;
+                    }
+                    
+                    console.log(l);
+                    console.log(proficiency);
+                    
+                    switch(chosen_class){
+                        case "barbarian":
+                            addBarbarianFeatures(l);
+                            break;
+                        case "bard":
+                            addBardFeatures(l);
+                            break;
+                        case "cleric":
+                            addClericFeatures(l);
+                            break;
+                        case "druid":
+                            addDruidFeatures(l);
+                            break;
+                        case "fighter":
+                            addFighterFeatures(l);
+                            break;
+                        case "monk":
+                            addMonkFeatures(l);
+                            break;
+                        case "paladin":
+                            addPaladinFeatures(l);
+                            break;
+                        case "ranger":
+                            addRangerFeatures(l);
+                            break;
+                        case "rogue":
+                            addRogueFeatures(l);
+                            break;
+                        case "sorcerer":
+                            addSorcererFeatures(l);
+                            break;
+                        case "warlock":
+                            addWarlockFeatures(l);
+                            break;
+                        case "wizard":
+                            addWizardFeatures(l);
+                            break;
+                    }
+                }
+                
+                //FINAL CALCULATIONS
+                function calculateFinalNumbers(){
+                    maxhd = level;
+                    strmod = Math.floor((str-10)/2);
+                    dexmod = Math.floor((dex-10)/2);
+                    conmod = Math.floor((con-10)/2);
+                    intmod = Math.floor((int-10)/2);
+                    wismod = Math.floor((wis-10)/2);
+                    chamod = Math.floor((cha-10)/2);
+                    ac = 10 + dexmod;
+                }
+                
+                //CHARACTER SHEET OUTPUT
+                function outputCharacterSheet(){
+                    var display_race = subrace.charAt(0).toUpperCase()+subrace.substr(1)+" "+race.charAt(0).toUpperCase()+race.substr(1);
+                    var display_background = background.charAt(0).toUpperCase()+background.substr(1);
+                    var display_chosen_class = chosen_class.charAt(0).toUpperCase()+chosen_class.substr(1)+" ("+subclass.charAt(0).toUpperCase()+subclass.substr(1)+") / Level "+level;
+                    
+                    $("#playerNameDisplay").text("Player Name: "+player_name);
+                    $("#charNameDisplay").text("Character Name: "+char_name);
+                    $("#raceDisplay").text("Race: "+display_race);
+                    $("#bgDisplay").text("Background: "+display_background);
+                    $("#classDisplay").text("Class/Level: "+display_chosen_class);
+                    $("#hpDisplay").text("Max HP: "+maxhp+" ("+maxhd+" Hit Dice)");
+                    $("#acDisplay").text("Armor Class (AC): "+ac);
+                    $("#strDisplay").text("Strength: "+str+" ["+strmod+"]");
+                    $("#dexDisplay").text("Dexterity: "+dex+" ["+dexmod+"]");
+                    $("#conDisplay").text("Constitution: "+con+" ["+conmod+"]");
+                    $("#intDisplay").text("Intelligence: "+int+" ["+intmod+"]");
+                    $("#wisDisplay").text("Wisdom: "+wis+" ["+wismod+"]");
+                    $("#chaDisplay").text("Charisma: "+cha+" ["+chamod+"]");
+                    $("#proficiencyDisplay").text("Proficiency: +"+proficiency);
+                    $.each(features,function(i,val){
+                        $("#featuresList").append("<li>"+val+"</li>");
+                    });
+                    $("#languagesDisplay").text("Languages: "+languages);
+                }
+                
+                //CLEARS ALL VARS (after generation)
+                function clearVars(){
+                    str = 0;
+                    strmod = 0;
+                    dex = 0;
+                    dexmod = 0;
+                    con = 0;
+                    conmod = 0;
+                    int = 0;
+                    intmod = 0;
+                    wis = 0;
+                    wismod = 0;
+                    cha = 0;
+                    chamod = 0;
+                    maxhp = 0;
+                    ac = 0;
+                    speed = 0;
+                    proficiency = 0;
+                    maxhd = 1;
+                    features=[];
+                    languages = "";
+                }
+                
+                function checkFields(){
+                    if(char_name == "" || player_name == "" || race == "" || chosen_class == "" || subclass == "" || background == ""){
+                        return false;
+                    }else if(subrace == "" && (race == "elf" || race == "dwarf" || race == "gnome" || race == "dragonborn" || race == "halfling")){
+                        return false;
+                    }else if(chosen_class == "warlock" && pact == ""){
+                        return false;
+                    }
+                    return true;
+                }
+                
+                //GENERATE CHARACTER
+                $("#generateButton").click(function(){
+                    if(checkFields()){
+                        var attributes = generateStats();
+                        assignStatsForClass(attributes);
+                        addRacialBonuses(race,subrace);
+                        addBackgroundFeatures(background);
+                        calculateFinalNumbers();
+                        addClassFeatures(level);
+                        outputCharacterSheet();
+                        clearVars();
+                        $("#characterSheetDiv").css('display', 'block');
+                    }else{
+                        $("#characterSheetDiv").css('display', 'none');
+                        alert("Please fill out all fields before generating your character!");
+                    }
+                });
+            });
+        </script>
+    </body>
+</html>
